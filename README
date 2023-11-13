@@ -1,0 +1,32 @@
+PYSNMPGETIFACES
+===============
+
+O objetivo deste simples script Python é obter, via protocolo SNMP V2, a lista de interfaces de rede do dispositivo alvo e status de cada uma. O script executa um "walk" pelas variáveis de interface locIfLineProt (proprietária OLD-CISCO-INTERFACES-MIB), ifDescr, ifType, ifSpeed, ifAdminStatus, ifOperStatus (IF-MIB).
+A variável locIfLineProt define o status do protocolo e está disponível apenas em alguns tipos de equipamentos e é util em alguns casos onde o status da interfcace física apresenta UP (ifOperStatus e ifAdminStatus) mas ainda assim não efetua troca de dados.
+
+Utilização:
+    python3 getifaces.py -i 192.168.0.1 -c public -p 161 -r 1 -t 10
+
+onde:
+    -i <ipaddr>: Iforma o endereço IPv4 do dispositivo alvo;
+    -c <community>: A community SNMP para acessar as variáveis do dispositivo;
+    -p <port>: Porta do agente SNMP disponível no dispositivo;
+    -r <retries>: Número de tentativas para obter resposta do agente;
+    -t <timeout>: Timeout em segundos para aguardar resposta do agente.
+
+Saída:
+
+Index	Admin         	Oper          	Proto         	Description
+-----	--------------	--------------	--------------	-----------------------------------------
+01	    DOWN          	DOWN          	UNKNOWN       	GigabitEthernet0/0/0, Speed=1000000000 (1.0G)
+02	    DOWN          	DOWN          	UNKNOWN       	GigabitEthernet0/0/1, Speed=1000000000 (1.0G)
+03	    UP            	DOWN          	UNKNOWN       	GigabitEthernet0/1/0, Speed=1000000000 (1.0G)
+04	    UP            	UP            	UP            	GigabitEthernet0/1/1, Speed=100000000 (100.0M)
+05	    UP            	DOWN          	UNKNOWN       	GigabitEthernet0/1/2, Speed=1000000000 (1.0G)
+06	    UP            	DOWN          	UNKNOWN       	GigabitEthernet0/1/3, Speed=1000000000 (1.0G)
+07	    UP            	DOWN          	UNKNOWN       	GigabitEthernet0/1/4, Speed=1000000000 (1.0G)
+08	    UP            	DOWN          	UNKNOWN       	GigabitEthernet0/1/5, Speed=1000000000 (1.0G)
+09	    UP            	DOWN          	UNKNOWN       	GigabitEthernet0/1/6, Speed=1000000000 (1.0G)
+10	    UP            	DOWN          	UNKNOWN       	GigabitEthernet0/1/7, Speed=1000000000 (1.0G)
+11	    UP            	UP            	UP            	Cellular0/2/0, Speed=50000000 (50.0M)
+12	    UP            	DORMANT       	UP            	Cellular0/2/1, Speed=50000000 (50.0M)
